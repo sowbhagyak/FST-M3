@@ -1,0 +1,21 @@
+version: "3"
+services:
+  postgres-server:
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_DB=simple-blog_api
+  node-app:
+    image: dharanidocker123/simpleblog
+    volumes:
+     - /app/node_modules
+     - ./:/app
+    environment:
+        - POSTGRES_HOST=postgres-server
+        - POSTGRES_PORT=5432
+        - POSTGRES_PASSWORD=postgres_password
+        - POSTGRES_USERNAME=postgres
+        - POSTGRES_DB=simple-blog_api
+    ports:
+        - "3000:3000"
